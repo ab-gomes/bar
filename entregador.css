@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Agu+Display:MORF@59&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Yuji+Mai&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.6;
+    color: #2F2F2F; /* Cinza escuro */
+    background-color: #F5F5DC; /* Bege claro para fundo geral */
+    font-family: 'Cormorant Garamond', serif; /* Definindo uma fonte base */
+}
+
+.header {
+    background-color: #1C1C1C; /* Preto */
+    color: #F5F5DC; /* Bege claro */
+    padding: 1rem;
+    display: flex;
+    justify-content: spce-between;
+    align-items: center;
+    padding: 10px 20px; /* Ajuste de padding para mobile */
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    flex-wrap: wrap; /* Permite que os itens do header quebrem linha se necessário */
+    min-height: 60px; /* Garante uma altura mínima */
+}
+
+.header-icons {
+    display: flex; /* Makes the icon container a flex container */
+    gap: 15px; /* Adds space between the icons */
+}
+
+/* Optional: Basic styling for your logo and icons */
+.logo {
+    color: #e3e3e3; /* Example color */
+    text-decoration: none;
+    font-size: 1.8em;
+}
+
+.cart svg,
+.header-icons a svg {
+    /* Styles for your SVG icons if needed */
+    height: 24px;
+    width:24px;
+}
+
+.header a {
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: #5d001e; /* Bordô */
+}
+
+.logo {
+    font-size: 1.8rem; /* Aumenta um pouco para mobile */
+    font-weight: bold;
+    font-family: 'Agu Display', sans-serif; /* Aplica a fonte específica para o logo */
+    flex-grow: 1; /* Permite que o logo ocupe espaço */
+    text-align: center; /* Centraliza o logo no mobile */
+    margin-bottom: 0.5rem; /* Espaço abaixo do logo no mobile */
+}
+
+.nav a{
+    color: #F5F5DC;
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s;
+}
+
+.nav a:hover{
+    color: #5d001e;
+}
+
+.banner {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('img/bbb.jpg')center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #F5F5DC;
+}
+
+.banner-content{
+    padding: 2rem;
+}
+
+.banner-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+.formulario h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.formulario label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formulario input,
+.formulario select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.formulario button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5D001E;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario button:hover {
+  background-color: #400016;
+}

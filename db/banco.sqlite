@@ -1,0 +1,101 @@
+CREATE TABLE Usuario (
+    idUsuario INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(15) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    endereco VARCHAR(100) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    uf VARCHAR(2) NOT NULL
+);
+
+CREATE TABLE Produto (
+    idProduto INT PRIMARY KEY IDENTITY(1,1),
+    idUsuario_fk INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    teor_alcoolico REAL,
+    preco REAL,
+    imagem VARCHAR(255),
+    CONSTRAINT fk_Usuario FOREIGN KEY (idUsuario_fk) REFERENCES Usuario(idUsuario)
+);
+
+CREATE TABLE Pedido (
+    idPedido INT PRIMARY KEY AUTOINCREMENT,
+    idUsuario_fk INT,
+    idProduto_fk INT,
+    quantidade INT,
+    data_pedido VARCHAR(50),
+    valor_total REAL,
+    status VARCHAR(30) DEFAULT 'Em processamento'
+);
+
+
+CREATE TABLE tipoPagamento (
+    idTipoPagamento INT PRIMARY KEY IDENTITY(1,1),
+    descricao VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE Pagamento (
+    idPagamento INT PRIMARY KEY IDENTITY(1,1),
+    idPedido_fk INT NOT NULL,
+    idTipoPagamento_fk INT NOT NULL,
+    sttPagamento VARCHAR(50) NOT NULL, 
+    dtPagamento DATETIME,
+    valor REAL NOT NULL,
+    CONSTRAINT fk_Pedido FOREIGN KEY (idPedido_fk) REFERENCES Pedido(idPedido),
+    CONSTRAINT fk_tipoPagamento FOREIGN KEY (idTipoPagamento_fk) REFERENCES tipoPagamento(idTipoPagamento)
+);
+
+CREATE TABLE Entregador (
+    idEntregador INT PRIMARY KEY IDENTITY(1,1),
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    cnh CHAR(11) NOT NULL UNIQUE
+);
+
+CREATE TABLE Entrega (
+    idEntrega INT PRIMARY KEY IDENTITY(1,1),
+    idPedido_fk INT NOT NULL,
+    idEntregador_fk INT,
+    endereco VARCHAR(100) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    uf CHAR(2) NOT NULL,
+    complemento VARCHAR(100),
+    stt VARCHAR(50) NOT NULL,
+    codigoEntrega VARCHAR(20),
+    CONSTRAINT fk_Pedido FOREIGN KEY (idPedido_fk) REFERENCES Pedido(idPedido),
+    CONSTRAINT fk_Entregador FOREIGN KEY (idEntregador_fk) REFERENCES Entregador(idEntregador)
+);
+
+CREATE TABLE ComprasHistorico (
+    idHistorico INT PRIMARY KEY IDENTITY(1,1),
+    idUsuario_fk INT NOT NULL,
+    idProduto_fk INT NOT NULL,
+    dtCompra DATETIME,
+    CONSTRAINT fk_Usuario FOREIGN KEY (idUsuario_fk) REFERENCES Usuario(idUsuario),
+    CONSTRAINT fk_Produto FOREIGN KEY (idProduto_fk) REFERENCES Produto(idProduto)
+);
+
+INSERT INTO Produto (nome, descricao, preco, imagem) VALUES
+    ('Cerveja Heineken', 'Long neck gelada 330ml', 6.90, 'Cerveja_Heineken_longneck.png'),
+    ('Vinho Tinto Chileno', 'Garrafa 750ml', 49.90, 'vinho_tinto.jpg'),
+    ('Whisky Jack Daniel’s', 'Garrafa 1L - Old No. 7', 129.90, 'destilado1.png'
+    ),
+    ('Vodka Absolut', 'Garrafa 1L', 89.90, 'destilado2.png'),
+    ('Cachaça 51', 'Garrafa 1L', 29.90, 'destilado3.png'),
+    ('Refrigerante Coca-Cola', 'Lata 350ml', 4.50, 'refrigerante1.png'),
+    ('Água Mineral', 'Garrafa 500ml', 2.50, 'agua.png'),
+    ('Suco de Laranja', 'Caixa 1L', 5.00, 'suco.png');
+    
+INSERT INTO tipoPagamento (descricao) VALUES(
+    ('Cartão de Crédito'),
+    ('Cartão de Débito'),
+    ('Dinheiro'),
+    ('Pix');
+);

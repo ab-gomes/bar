@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Agu+Display:MORF@59&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Yuji+Mai&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.6;
+    color: #2F2F2F; /* Cinza escuro */
+    background-color: #F5F5DC; /* Bege claro para fundo geral */
+    font-family: 'Cormorant Garamond', serif; /* Definindo uma fonte base */
+}
+
+.header {
+    background-color: #1C1C1C; /* Preto */
+    color: #F5F5DC; /* Bege claro */
+    padding: 1rem;
+    display: flex;
+    justify-content: spce-between;
+    align-items: center;
+    padding: 10px 20px; /* Ajuste de padding para mobile */
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    flex-wrap: wrap; /* Permite que os itens do header quebrem linha se necessário */
+    min-height: 60px; /* Garante uma altura mínima */
+}
+
+.header-icons {
+    display: flex; /* Makes the icon container a flex container */
+    gap: 15px; /* Adds space between the icons */
+}
+
+/* Optional: Basic styling for your logo and icons */
+.logo {
+    color: #e3e3e3; /* Example color */
+    text-decoration: none;
+    font-size: 1.8em;
+}
+
+.cart svg,
+.header-icons a svg {
+    /* Styles for your SVG icons if needed */
+    height: 24px;
+    width:24px;
+}
+
+.header a {
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: #5d001e; /* Bordô */
+}
+
+
+.barra-localizacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 400px;
+  padding: 10px;
+  background-color: #2F2F2F; /* Cinza escuro */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.barra-localizacao input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #F5F5DC; /* Bege claro */
+  color: #1C1C1C; /* Preto */
+  font-size: 14px;
+}
+
+.barra-localizacao input::placeholder {
+  color: #1c1c1c;
+}
+
+.barra-localizacao button {
+  padding: 10px 16px;
+  background-color: #D4AF37; /* Dourado */
+  color: #1C1C1C; /* Preto */
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.barra-localizacao button:hover {
+  background-color: #D4AF37; /* tom mais escuro do dourado */
+}
+
+.logo {
+    font-size: 1.8rem; /* Aumenta um pouco para mobile */
+    font-weight: bold;
+    font-family: 'Agu Display', sans-serif; /* Aplica a fonte específica para o logo */
+    flex-grow: 1; /* Permite que o logo ocupe espaço */
+    text-align: center; /* Centraliza o logo no mobile */
+    margin-bottom: 0.5rem; /* Espaço abaixo do logo no mobile */
+}
+
+.nav a{
+    color: #F5F5DC;
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s;
+}
+
+.nav a:hover{
+    color: #5d001e;
+}
+
+.banner {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('img/bbb.jpg')center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #F5F5DC;
+}
+
+.banner-content{
+    padding: 2rem;
+}
+
+.banner-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.bebidas {
+    padding: 5rem 2rem;
+    background-color: #F5F5DC;
+}
+
+.bebidas h2{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.bebidas-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.bebidas-card {
+    background: #ebebd6;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.bebidas-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.bebidas-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.bebidas-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bebidas-card h3, .bebidas-card p{
+    padding: 1rem;
+}
+
+
+.servicos {
+    padding: 5rem 2rem;
+    background-color: #F5F5DC;
+}
+
+.servicos img {
+    width: 500px;
+    height: 500px;
+    object-fit: center;
+}
+
+.servicos h2{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.servicos-item {
+    text-align: center;
+    padding: 2rem;
+    background-color: #ebebd6;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Tornar o bloco inteiro clicável */
+.servicos-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+/* Estilização das imagens */
+.servicos img {
+    width: 100%;
+    max-width: 500px;
+    height: 300px; /* Ajuste para um tamanho mais adequado */
+    object-fit: cover; /* Mantém a imagem ajustada sem deformar */
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+/* Efeito hover */
+.servicos-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.servicos-item:hover img {
+    opacity: 0.8;
+}
+
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center; 
+    padding: 2rem;
+}
+.footer a {
+    color: #D4AF37; /* Dourado */
+    text-decoration: none;
+}
+.footer a:hover {
+    color: #F5F5DC; /* Bege claro */
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    display: flex;
+}
+
+@media(max-width: 768px) {
+    .header{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav {
+        margin-top: 1rem;
+    }
+
+    .nav a {
+        margin: 0.5rem;
+    }
+
+    .banner-content h2 {
+        font-size: 2rem;
+    }
+
+    .datas-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+

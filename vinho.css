@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Agu+Display:MORF@59&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Yuji+Mai&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.6;
+    color: #2F2F2F; /* Cinza escuro */
+    background-color: #F5F5DC; /* Bege claro para fundo geral */
+    font-family: 'Cormorant Garamond', serif; /* Definindo uma fonte base */
+}
+
+/* Header */
+.header {
+    background-color: #1C1C1C; /* Preto */
+    color: #F5F5DC; /* Bege claro */
+    padding: 1rem; 
+    display: flex;
+    justify-content: spce-between;
+    align-items: center;
+    padding: 10px 20px; /* Ajuste de padding para mobile */
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    flex-wrap: wrap; /* Permite que os itens do header quebrem linha se necessário */
+    min-height: 60px; /* Garante uma altura mínima */
+}
+
+.header-icons {
+    display: flex; /* Makes the icon container a flex container */
+    gap: 15px; /* Adds space between the icons */
+}
+
+/* Optional: Basic styling for your logo and icons */
+.login, .cart {
+    color: #e3e3e3; /* Example color */
+    text-decoration: none;
+    font-size: 1.8em;
+}
+
+.cart svg,
+.header-icons a svg {
+    /* Styles for your SVG icons if needed */
+    height: 24px;
+    width:24px;
+}
+
+.header a {
+    color: #F5F5DC;
+    text-decoration: none;
+}
+
+.header a:hover {
+    color: #5d001e; /* Bordô */
+}
+
+.logo {
+    font-size: 1.8rem; /* Aumenta um pouco para mobile */
+    font-weight: bold;
+    font-family: 'Agu Display', sans-serif; /* Aplica a fonte específica para o logo */
+    flex-grow: 1; /* Permite que o logo ocupe espaço */
+    text-align: center; /* Centraliza o logo no mobile */
+    margin-bottom: 0.5rem; /* Espaço abaixo do logo no mobile */
+}
+
+.nav {
+    display: flex;
+    flex-direction: column; /* Links da navegação em coluna no mobile */
+    width: 100%; /* Ocupa a largura total no mobile */
+    text-align: center; /* Centraliza os links */
+}
+
+.nav a {
+    color: #F5F5DC;
+    text-decoration: none;
+    padding: 0.5rem 0; /* Padding vertical para os links */
+    margin: 0; /* Remove margin-left para mobile */
+    transition: color 0.3s;
+    font-size: 1rem;
+}
+
+.nav a:hover {
+    color: #D4AF37; /* Dourado */
+}
+
+/* Banner */
+.banner {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url('img/bbb.jpg') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #F5F5DC; /* Bege claro */
+    padding-top: 60px; /* Compensa o header fixo */
+}
+
+.banner-content {
+    padding: 1.5rem; /* Ajusta padding para mobile */
+}
+
+.banner-content h2 {
+    font-size: 2.5rem; /* Ajusta tamanho da fonte para mobile */
+    margin-bottom: 1rem;
+    font-family: 'Yuji Mai', cursive; /* Aplica a fonte específica */
+}
+
+/* Seções de Cervejas (Nacionais e Importadas) */
+.vinhoN, .vinhoI {
+    padding: 5rem 2rem; /* Ajusta padding para mobile */
+    background-color: #F5F5DC; /* Bege claro */
+}
+
+.vinhoN h2, .vinhoI h2 {
+    text-align: center;
+    margin-bottom: 3rem; /* Ajusta margin para mobile */
+    color: #5D001E; /* Bordô */
+    font-size: 2rem; /* Ajusta tamanho da fonte */
+    font-family: 'Agu Display', sans-serif;
+}
+
+.vinhoN-grid, .vinhoI-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem; /* Aumenta o gap um pouco */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vinhoN-item, .vinhoI-item {
+    text-align: center;
+    padding: 2rem; /* Ajusta padding para mobile */
+    background-color: #D4AF37; /* Dourado */
+    color: #1C1C1C;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vinhoN-item:hover, .vinhoI-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.vinhoN-item a, .vinhoI-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.vinhoN img, .vinhoI img {
+    width: 100%;
+    height: 280px; /* Ajusta altura da imagem para mobile */
+    object-fit: cover;
+    border-radius: 20px; /* Ajusta border-radius */
+    transition: opacity 0.1s ease;
+    margin-bottom: 1rem; /* Espaço abaixo da imagem */
+}
+
+.vinhoN-item h3, .vinhoI-item h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.vinhoN-item p, .vinhoI-item p {
+    font-size: 1rem;
+}
+
+.vinhoN-item:hover img, .vinhoI-item:hover img {
+    opacity: 0.9;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center; 
+    padding: 2rem;
+}
+.footer a {
+    color: #D4AF37; /* Dourado */
+    text-decoration: none;
+}
+.footer a:hover {
+    color: #F5F5DC; /* Bege claro */
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    display: flex;
+}
+
+@media(max-width: 768px) {
+    .header{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav {
+        margin-top: 1rem;
+    }
+
+    .nav a {
+        margin: 0.5rem;
+    }
+
+    .banner-content h2 {
+        font-size: 2rem;
+    }
+
+    .datas-container {
+        grid-template-columns: 1fr;
+    }
+}
+
