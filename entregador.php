@@ -1,91 +1,67 @@
-<?php 
-session_start();
-include 'includes/conexao.php'; 
-?>
-<?php
-// processa_cadastro.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="entregador.css">
+    <title> OnlineBar </title>
+</head>
+<body>
+   <header class="header">
+        <a href="index.php"><h1 class="logo">OnlineBar</h1></a>
+        <div class="header-icons">
+            <a href="carrinho.php" class="cart">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+            </a>
+            <a href="login.php" class="user">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
+            </a>
+        </div>
+    </header>
+    
+    <section id="home" class="banner">
+        <div class="banner-content">
+            <h2>Bem-vindo</h2>            
+        </div>
+    </section>
 
-// Conexão com banco SQLite (arquivo no mesmo diretório)
-$db = new PDO('sqlite:entregadores.sqlite');
 
-// Criar tabela se não existir
-$db->exec("CREATE TABLE IF NOT EXISTS entregadores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT,
-    cpf TEXT UNIQUE,
-    email TEXT,
-    telefone TEXT,
-    veiculo TEXT,
-    placa TEXT,
-    senha TEXT
-)");
+    <div class="container">
+    <form class="formulario">
+      <h2>Cadastro de Entregador</h2>
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Receber dados do formulário
-    $nome = trim($_POST['nome']);
-    $cpf = trim($_POST['cpf']);
-    $email = trim($_POST['email']);
-    $telefone = trim($_POST['telefone']);
-    $veiculo = trim($_POST['veiculo']);
-    $placa = trim($_POST['placa']);
-    $senha = $_POST['senha'];
-    $confirmarSenha = $_POST['confirmarSenha'];
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" required>
 
-    // Validação básica no servidor
-    if ($senha !== $confirmarSenha) {
-        echo "As senhas não coincidem.";
-        exit;
-    }
+      <label for="cpf">CPF</label>
+      <input type="text" id="cpf" name="cpf" maxlength="14" required placeholder="000.000.000-00">
 
-    // Hash da senha para segurança
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" required>
 
-    // Inserir no banco
-    $stmt = $db->prepare("INSERT INTO entregadores (nome, cpf, email, telefone, veiculo, placa, senha) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      <label for="telefone">Telefone</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
 
-    try {
-        $stmt->execute([$nome, $cpf, $email, $telefone, $veiculo, $placa, $senhaHash]);
-        echo "Cadastro realizado com sucesso!";
-        // Você pode redirecionar para login, por exemplo
-        // header("Location: login.html");
-    } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Violação de UNIQUE
-            echo "CPF já cadastrado.";
-        } else {
-            echo "Erro ao cadastrar: " . $e->getMessage();
-        }
-    }
-} else {
-    echo "Método inválido.";
-}
-?>
+      <label for="veiculo">Tipo de Veículo</label>
+      <select id="veiculo" name="veiculo" required>
+        <option value="">Selecione...</option>
+        <option value="bicicleta">Bicicleta</option>
+        <option value="moto">Moto</option>
+        <option value="carro">Carro</option>
+      </select>
 
-<form class="formulario" method="POST" action="processa_cadastro.php" onsubmit="return validarSenha()"></form>
-<script>
-function validarSenha() {
-    const senha = document.getElementById('senha').value;
-    const confirmarSenha = document.getElementById('confirmarSenha').value;
+      <label for="placa">Placa do Veículo</label>
+      <input type="text" id="placa" name="placa" required placeholder="ABC-1234">
 
-    if (senha !== confirmarSenha) {
-        alert('As senhas não coincidem!');
-        return false; // impede o envio
-    }
-    return true; // permite o envio
-}
-</script>
-<form class="formulario" method="POST" action="processa_cadastro.php" onsubmit="return validarSenha()">
-  <!-- ... seu formulário continua igual ... -->
-</form>
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" name="senha" required>
 
-<script>
-function validarSenha() {
-    const senha = document.getElementById('senha').value;
-    const confirmarSenha = document.getElementById('confirmarSenha').value;
+      <label for="confirmarSenha">Confirmar Senha</label>
+      <input type="password" id="confirmarSenha" name="confirmarSenha" required>
 
-    if (senha !== confirmarSenha) {
-        alert('As senhas não coincidem!');
-        return false;
-    }
-    return true;
-}
-</script>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+    
+</body>
+</html>

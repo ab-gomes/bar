@@ -1,99 +1,28 @@
-<?php 
-session_start();
-include 'includes/conexao.php'; 
-?>
-<?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST['email']);
-    $senha = trim($_POST['senha']);
-
-    // Exemplo de conexão com SQLite (ajuste conforme seu banco)
-    $db = new PDO('sqlite:onlinebar.sqlite');
-
-    $stmt = $db->prepare("SELECT * FROM usuarios WHERE email = :email");
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($senha, $user['senha'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['nome'];
-        header("Location: index.php"); // Página após login
-        exit;
-    } else {
-        echo "Login inválido. <a href='login.html'>Tente novamente</a>.";
-    }
-} else {
-    header("Location: login.html");
-    exit;
-}
-?>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = trim($_POST['nome']);
-    $email = trim($_POST['email']);
-    $cpf = trim($_POST['cpf']);
-    $senha = $_POST['senha'];
-    $confirmarSenha = $_POST['confirmarSenha'];
-
-    if ($senha !== $confirmarSenha) {
-        die("Senhas não conferem. <a href='login.html'>Voltar</a>");
-    }
-
-    // Hash da senha para segurança
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-    // Conectar ao banco SQLite
-    $db = new PDO('sqlite:onlinebar.sqlite');
-
-    // Verificar se o email já existe
-    $stmt = $db->prepare("SELECT id FROM usuarios WHERE email = :email");
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    $stmt->execute();
-
-    if ($stmt->fetch()) {
-        die("E-mail já cadastrado. <a href='login.html'>Voltar</a>");
-    }
-
-    // Inserir novo usuário
-    $stmt = $db->prepare("INSERT INTO usuarios (nome, email, cpf, senha) VALUES (:nome, :email, :cpf, :senha)");
-    $stmt->bindValue(':nome', $nome, PDO::PARAM_STR);
-    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-    $stmt->bindValue(':cpf', $cpf, PDO::PARAM_STR);
-    $stmt->bindValue(':senha', $senhaHash, PDO::PARAM_STR);
-    $stmt->execute();
-
-    echo "Cadastro realizado com sucesso! <a href='login.html'>Fazer login</a>.";
-} else {
-    header("Location: login.html");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="login.css" />
-    <title>OnlineBar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title> OnlineBar </title>
 </head>
 <body>
    <header class="header">
-        <a href="index.html"><h1 class="logo">OnlineBar</h1></a>
+        <a href="index.php"><h1 class="logo">OnlineBar</h1></a>
         <div class="header-icons">
             <a href="carrinho.html" class="cart">
-            <!-- SVG do carrinho omitido para brevidade -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
             </a>
-            <a href="login.html">
-            <!-- SVG do login omitido para brevidade -->
+            <a href="login.php" class="user">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
             </a>
         </div>
     </header>
     
     <section id="home" class="banner">
         <div class="banner-content">
-            <h2></h2>
+            <h2>Login/Cadastro</h2>
         </div>
     </section>
 
@@ -122,8 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
 
       <!-- Formulário de Cadastro -->
+
       <div class="cadastro-form">
-        <form id="formCadastro" action="processa_cadastro.php" method="POST">
+        <form action="processa_cadastro.php" method="POST">
           <h2>Cadastro</h2>
           <label for="cad-nome">Nome</label>
           <input type="text" id="cad-nome" name="nome" required>
@@ -146,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
-<script>
+  <script>
   // Validação básica para o cadastro
   document.getElementById('formCadastro').addEventListener('submit', function(event) {
     const senha = document.getElementById('cad-senha').value;

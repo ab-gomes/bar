@@ -1,47 +1,31 @@
-<?php 
-session_start();
-//include 'includes/conexao.php'; 
-?>
-<?php
-$usuario_logado = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
-?>
 <!DOCTYPE html> 
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlineBar</title>
     <link rel="stylesheet" href="style.css">
+    <title> OnlineBar </title>
 </head>
 <body>
-    <script>
-        // AVISO DE MAIORIDADE (mostrado uma vez)
-        if (!localStorage.getItem('maioridadeConfirmada')) {
-            alert("Este site é destinado a maiores de 18 anos.");
-            localStorage.setItem('maioridadeConfirmada', 'true');
-        }
-    </script>
-
-    <header class="header">
+   <header class="header">
         <a href="index.php"><h1 class="logo">OnlineBar</h1></a>
         <div class="header-icons">
-            <a href="carrinho.php" class="cart">🛒</a>
-            <?php if ($usuario_logado): ?>
-                <span class="user-logado">Olá, <?= htmlspecialchars($usuario_logado) ?></span>
-                <a href="logout.php" title="Sair">Sair</a>
-            <?php else: ?>
-                <a href="login.php" title="Login">👤</a>
-            <?php endif; ?>
+            <a href="carrinho.php" class="cart">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+            </a>
+            <a href="login.php" class="user">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
+            </a>
         </div>
     </header>
-
+    
     <section id="home" class="banner">
         <div class="banner-content">
             <h2>Bem-vindo ao seu Bar Online</h2>
-            <p>Uma experiência única na sua compra</p>
-            <form method="GET" action="localizacao.php" class="barra-localizacao" onsubmit="return validarLocalizacao();">
-                <input type="text" name="local" id="campoLocal" placeholder="Digite seu bairro ou CEP" required>
-                <button type="submit">Pesquisar</button>
+            <p>Uma experiência unica na sua compra </p>
+            <form method="GET" action="localizacao.php" class="barra-localizacao">
+                <input type="text" name="local" placeholder="Digite seu bairro ou CEP" required>
+                <button type="submit" aria-label="Localizar"> Pesquisar</button>
             </form>
             <p class="localizacao-info">Entregamos em todo o Brasil</p>
         </div>
@@ -51,90 +35,93 @@ $usuario_logado = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
         <h2>Tipos de Bebidas</h2>
         <div class="bebidas-grid">
             <div class="bebidas-card">
+                
                 <a href="cervejas.php">
                     <img src="img/cerva.jpg" alt="cervejas">
                     <h3>Cervejas</h3>
-                    <p>Conheça nossas cervejas</p>
+                    <p>conheça nossas cervejas</p>
                 </a>
             </div>
+
             <div class="bebidas-card">
                 <a href="vinho.php">
                     <img src="img/vinho.jpg" alt="vinhos">
                     <h3>Vinhos</h3>
-                    <p>Conheça nossos vinhos</p>
+                    <p>conheça nossos vinhos</p>
                 </a>
             </div>
+
             <div class="bebidas-card">
                 <a href="refri.php">
-                    <img src="img/refr.jpg" alt="refrigerantes">
-                    <h3>Não Alcoólicos</h3>
-                    <p>Conheça nossas bebidas não alcoólicas</p>
+                    <img src="img/refr.jpg" alt="refr">
+                    <h3>Não Alcoolicos</h3>
+                    <p>conheça nossas bebidas ñ alcoolicas</p>
                 </a>
             </div>
+
             <div class="bebidas-card">
                 <a href="destilados.php">
-                    <img src="img/detilado.jpg" alt="destilados">
-                    <h3>Destilados</h3>
-                    <p>Conheça nossos destilados</p>
+                <img src="img/detilado.jpg" alt="destilados">
+                <h3>Destilados</h3>
+                <p>conheça nossos destilados</p>
                 </a>
             </div>
         </div>
     </section>
+
 
     <section id="servicos" class="servicos">
         <h2>Nossos Serviços</h2>
         <div class="servicos-grid">
             <div class="servicos-item">
                 <a href="catalogo.php">
-                    <h3>Catálogo</h3>
+                    <h3>Catalogo</h3>
                     <p>Confira nossos produtos</p>
-                    <img src="img/catalogo_home.jpg" alt="Catálogo">
+                    <img src="img/catalogo_home.jpg" alt="Catalogo">
                 </a>
             </div>
+
             <div class="servicos-item">
-                <a href="promocoes.php">
+                <a href="prmocoes.php">
                     <h3>Promoções</h3>
-                    <p>Confira nossas promoções</p>
-                    <img src="img/promo.jpg" alt="Promoções">
+                    <p>Confira nossas Promoções</p>
+                    <img src="img/promo.jpg" alt="Promocoes">
                 </a>
             </div>
+
             <div class="servicos-item">
                 <a href="vip.php">
-                    <h3>Área VIP</h3>
-                    <p>Descontos e novidades exclusivas</p>
-                    <img src="img/vip.jpg" alt="VIP">
+                    <h3>Area Vip</h3>
+                    <p>Venha ser um cliente vip e descubra descontos e novos produtos antecipadamente</p>
+                     <img src="img/vip.jpg" alt="Vip">
                 </a>
             </div>
+
             <div class="servicos-item">
                 <a href="entregador.php">
-                    <h3>Seja um entregador</h3>
-                    <p>Trabalhe conosco</p>
-                    <img src="img/entregador.jpg" alt="Entregador">
+                    <h3>Venha ser um entregador</h3>
+                    <p>Venha trabalhar conosco</p>
+                     <img src="img/entregador.jpg" alt="Vip">
                 </a>
             </div>
         </div>
     </section>
 
+
     <footer class="footer">
-        <p>&copy; 2025 OnlineBar. Todos os direitos reservados.</p>
+        <p>&copy; 2025 OnlineBar. Todos os diretos reservados</p>
         <ul>
-            <li><a href="#">Sobre Nós</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Contato</a></li>
-            <li><a href="#">Política de Privacidade</a></li>
-            <li><a href="#">Termos de Uso</a></li>
+            <li>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Perguntas Frequentes (FAQ)</a>
+                <a href="#">Contato</a>
+                <a href="#">politica de privacidade</a>
+                <a href="#">Termos e condições de uso</a>
+            </li>
         </ul>
     </footer>
 
-    <script>
-        function validarLocalizacao() {
-            const campo = document.getElementById('campoLocal').value;
-            if (campo.trim().length < 3) {
-                alert("Digite um bairro ou CEP válido.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+    <script src="script.js"></script>
+
 </body>
 </html>
