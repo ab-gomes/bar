@@ -1,127 +1,174 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~OnlineBar~</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     <link rel="stylesheet" href="style.css">
-    <title> OnlineBar </title>
 </head>
 <body>
-   <header class="header">
-        <a href="index.php"><h1 class="logo">OnlineBar</h1></a>
-        <div class="header-icons">
-            <a href="carrinho.php" class="cart">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
-            </a>
-            <a href="login.php" class="user">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
-            </a>
-        </div>
+    <?php
+    // --- INÍCIO DA CONEXÃO COM O BANCO DE DADOS ---
+    require_once 'config.php';
+
+    try {
+        $pdo = new PDO("sqlite:$databaseFile");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // --- FUNÇÕES PARA BUSCAR DADOS DO BANCO ---
+
+        // Produtos em destaque (ex: em promoção)
+        function getProdutosDestaque($pdo) {
+            $stmt = $pdo->query("SELECT * FROM Produtos WHERE em_promocao = 1 LIMIT 3"); // Pega até 3 produtos em promoção
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        // Últimas novidades 
+        function getUltimasNovidades($pdo) {
+             $stmt = $pdo->query("SELECT * FROM Produtos ORDER BY data_cadastro DESC LIMIT 3");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        // Bebidas mais vendidas (isso requer uma tabela 'Itens_Pedido' com contagem)
+        // Adaptado para simular, pegando produtos com maior estoque (substitua pela lógica correta)
+        function getBebidasMaisVendidas($pdo) {
+            $stmt = $pdo->query("SELECT * FROM Produtos ORDER BY estoque DESC LIMIT 3"); // Simulação
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        // --- BUSCA OS DADOS ---
+        $produtosDestaque = getProdutosDestaque($pdo);
+        $ultimasNovidades = getUltimasNovidades($pdo);
+        $bebidasMaisVendidas = getBebidasMaisVendidas($pdo);
+
+        $pdo = null; // Fecha a conexão
+
+    } catch (PDOException $e) {
+        echo "<p style='color: red; text-align: center;'>Erro ao carregar dados: " . $e->getMessage() . "</p>";
+        $produtosDestaque = [];
+        $ultimasNovidades = [];
+        $bebidasMaisVendidas = [];
+    }
+    ?>
+
+    <header class="header">
+        <h1 class="logo"><a href="index.php">🍺</a></h1>
+        <nav class="nav">
+            <?php if (isset($_SESSION['localizacao'])): ?>
+                <p style="text-align: center; background-color: #F5F5DC; padding: 5px; font-size: 14px;">📍 Entregando em: <strong><?php echo $_SESSION['localizacao']; ?></strong></p>
+            <?php endif; ?>
+            <a href="index.php"> Home </a>
+            <a href="favoritos.php"> 🤍 </a>
+            <a href="cart.php"> 🛒 (<?= array_sum(array_column($_SESSION['carrinho'] ?? [], 'quantidade')) ?>) </a>
+            <a href="user.php"> 👤 </a>
+        </nav>
     </header>
-    
+
     <section id="home" class="banner">
         <div class="banner-content">
-            <h2>Bem-vindo ao seu Bar Online</h2>
-            <p>Uma experiência unica na sua compra </p>
-            <form method="GET" action="localizacao.php" class="barra-localizacao">
-                <input type="text" name="local" placeholder="Digite seu bairro ou CEP" required>
-                <button type="submit" aria-label="Localizar"> Pesquisar</button>
-            </form>
-            <p class="localizacao-info">Entregamos em todo o Brasil</p>
-        </div>
-    </section>
-
-    <section id="bebidas" class="bebidas">
-        <h2>Tipos de Bebidas</h2>
-        <div class="bebidas-grid">
-            <div class="bebidas-card">
-                
-                <a href="cervejas.php">
-                    <img src="img/cerva.jpg" alt="cervejas">
-                    <h3>Cervejas</h3>
-                    <p>conheça nossas cervejas</p>
-                </a>
-            </div>
-
-            <div class="bebidas-card">
-                <a href="vinho.php">
-                    <img src="img/vinho.jpg" alt="vinhos">
-                    <h3>Vinhos</h3>
-                    <p>conheça nossos vinhos</p>
-                </a>
-            </div>
-
-            <div class="bebidas-card">
-                <a href="refri.php">
-                    <img src="img/refr.jpg" alt="refr">
-                    <h3>Não Alcoolicos</h3>
-                    <p>conheça nossas bebidas ñ alcoolicas</p>
-                </a>
-            </div>
-
-            <div class="bebidas-card">
-                <a href="destilados.php">
-                <img src="img/detilado.jpg" alt="destilados">
-                <h3>Destilados</h3>
-                <p>conheça nossos destilados</p>
-                </a>
+            <h2>OnlineBar</h2>
+            <p>Sua experiência única nas compras de Bebidas de Forma Online</p>
+            <div class="localizacao-box">
+                <form id="formLocalizacao" action="salvar_localizacao.php" method="POST">
+                    <input type="text" name="localizacao" id="campoLocalizacao" placeholder="Digite sua localização..." required>
+                    <button type="button" onclick="obterLocalizacao()">📍</button>
+                </form>
             </div>
         </div>
     </section>
 
+    <section id="destaque" class="promocoes">
+        <h2>Produtos em Destaque</h2>
+        <div class="my-carousel promocoes-carousel">
+            <?php foreach ($produtosDestaque as $produto): ?>
+                <div>
+                    <img src="<?= htmlspecialchars($produto['imagem_url']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                    <h3><?= htmlspecialchars($produto['nome']) ?></h3>
+                    <p><?= htmlspecialchars($produto['descricao']) ?></p>
+                    <p>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <section id="novidades" class="promocoes">
+        <h2>Últimas Novidades</h2>
+        <div class="my-carousel promocoes-carousel">
+            <?php foreach ($ultimasNovidades as $produto): ?>
+                <div>
+                    <img src="<?= htmlspecialchars($produto['imagem_url']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                     <h3><?= htmlspecialchars($produto['nome']) ?></h3>
+                    <p><?= htmlspecialchars($produto['descricao']) ?></p>
+                    <p>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <section id="mais-vendidas" class="promocoes">
+        <h2>Bebidas Mais Vendidas</h2>
+        <div class="my-carousel promocoes-carousel">
+            <?php foreach ($bebidasMaisVendidas as $produto): ?>
+                <div>
+                    <img src="<?= htmlspecialchars($produto['imagem_url']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                     <h3><?= htmlspecialchars($produto['nome']) ?></h3>
+                    <p><?= htmlspecialchars($produto['descricao']) ?></p>
+                    <p>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <?php
+    // **IMPORTANTE:** Este código é um exemplo e depende de você implementar um sistema de login.
+    // Ele assume que você está usando sessões PHP (`session_start()`) e que o nome do usuário
+    // está armazenado em `$_SESSION['nome_usuario']`.
+    if (isset($_SESSION['nome_usuario'])) {
+        echo "<section class='usuario-logado'>";
+        echo "<p>Bem-vindo(a), " . htmlspecialchars($_SESSION['nome_usuario']) . "!</p>";
+        echo "</section>";
+    }
+    ?>
 
     <section id="servicos" class="servicos">
         <h2>Nossos Serviços</h2>
         <div class="servicos-grid">
             <div class="servicos-item">
                 <a href="catalogo.php">
-                    <h3>Catalogo</h3>
-                    <p>Confira nossos produtos</p>
-                    <img src="img/catalogo_home.jpg" alt="Catalogo">
+                    <h3>Catálogo</h3>
+                    <p>Conheça nosso catálogo</p>
+                    <img src="img/catalogo_home.jpg" alt="catalogo">
                 </a>
             </div>
 
             <div class="servicos-item">
-                <a href="prmocoes.php">
-                    <h3>Promoções</h3>
-                    <p>Confira nossas Promoções</p>
-                    <img src="img/promo.jpg" alt="Promocoes">
+                <a href="cupons.html">
+                    <h3>Cupons</h3>
+                    <p>Conhaça nossos cupons</p>
+                    <img src="img/cupon.png" alt="cupons">
                 </a>
             </div>
 
             <div class="servicos-item">
-                <a href="vip.php">
-                    <h3>Area Vip</h3>
-                    <p>Venha ser um cliente vip e descubra descontos e novos produtos antecipadamente</p>
-                     <img src="img/vip.jpg" alt="Vip">
-                </a>
-            </div>
-
-            <div class="servicos-item">
-                <a href="entregador.php">
-                    <h3>Venha ser um entregador</h3>
-                    <p>Venha trabalhar conosco</p>
-                     <img src="img/entregador.jpg" alt="Vip">
+                <a href="area_vip.html">
+                    <h3>Degustadores Pro</h3>
+                    <p>Descubra nossos decontos e promoções imperdiveis</p>
+                     <img src="img/vip.jpg" alt="vip">
                 </a>
             </div>
         </div>
     </section>
 
-
     <footer class="footer">
-        <p>&copy; 2025 OnlineBar. Todos os diretos reservados</p>
-        <ul>
-            <li>
-                <a href="#">Sobre Nós</a>
-                <a href="#">Perguntas Frequentes (FAQ)</a>
-                <a href="#">Contato</a>
-                <a href="#">politica de privacidade</a>
-                <a href="#">Termos e condições de uso</a>
-            </li>
-        </ul>
+        <p>&copy; 2025 OnlineBar. Todos os direitos reservados</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+    <script src="script.js"></script>
 </body>
 </html>

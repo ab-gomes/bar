@@ -1,211 +1,484 @@
 @import url('https://fonts.googleapis.com/css2?family=Agu+Display:MORF@59&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Yuji+Mai&display=swap');
-*{
+
+/* Variáveis CSS para facilitar a manutenção das cores */
+:root {
+    --bordo: #5D001E;
+    --dourado: #D4AF37;
+    --preto: #1C1C1C;
+    --bege-claro: #F5F5DC;
+    --cinza-escuro: #2F2F2F;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
+    font-family: 'Cormorant Garamond', serif;
     line-height: 1.6;
-    color: #2F2F2F; /* Cinza escuro */
-    background-color: #F5F5DC; /* Bege claro para fundo geral */
-    font-family: 'Cormorant Garamond', serif; /* Definindo uma fonte base */
+    color: var(--cinza-escuro);
+    background-color: var(--bege-claro); /* Fundo geral claro */
 }
 
+/* --- Cabeçalho --- */
 .header {
-    background-color: #1C1C1C; /* Preto */
-    color: #F5F5DC; /* Bege claro */
+    background-color: var(--preto);
+    color: var(--bege-claro);
     padding: 1rem;
     display: flex;
-    justify-content: spce-between;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Ajuste de padding para mobile */
     position: fixed;
     width: 100%;
     z-index: 1000;
-    flex-wrap: wrap; /* Permite que os itens do header quebrem linha se necessário */
-    min-height: 60px; /* Garante uma altura mínima */
-}
-
-.header-icons {
-    display: flex; /* Makes the icon container a flex container */
-    gap: 15px; /* Adds space between the icons */
-}
-
-/* Optional: Basic styling for your logo and icons */
-.logo {
-    color: #e3e3e3; /* Example color */
-    text-decoration: none;
-    font-size: 1.8em;
-}
-
-.cart svg,
-.header-icons a svg {
-    /* Styles for your SVG icons if needed */
-    height: 24px;
-    width:24px;
-}
-
-.header a {
-    color: #F5F5DC;
-    text-decoration: none;
-}
-
-.header a:hover {
-    color: #5d001e; /* Bordô */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-    font-size: 1.8rem; /* Aumenta um pouco para mobile */
+    font-size: 1.8rem;
     font-weight: bold;
-    font-family: 'Agu Display', sans-serif; /* Aplica a fonte específica para o logo */
-    flex-grow: 1; /* Permite que o logo ocupe espaço */
-    text-align: center; /* Centraliza o logo no mobile */
-    margin-bottom: 0.5rem; /* Espaço abaixo do logo no mobile */
+    color: var(--dourado);
+    font-family: 'Agu Display', sans-serif;
 }
 
-.nav a{
-    color: #F5F5DC;
+.nav a {
+    color: var(--bege-claro);
     text-decoration: none;
     margin-left: 2rem;
-    transition: color 0.3s;
+    transition: color 0.3s ease-in-out;
+    font-size: 1.1rem;
 }
 
-.nav a:hover{
-    color: #5d001e;
+.nav a:hover {
+    color: var(--dourado);
 }
 
+/* --- Banner do Catálogo --- */
 .banner {
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('img/bbb.jpg')center/cover;
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('img/bbb.jpg') center/cover; /* Make sure 'img/bbb.jpg' exists */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #F5F5DC;
+    color: var(--bege-claro);
+    padding-top: 60px; /* Space for fixed header */
 }
 
-.banner-content{
+.banner-content {
     padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    max-width: 700px; /* Limit width for better appearance */
+    width: 90%;
 }
 
 .banner-content h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
-}
-
-
-.catalogo {
-    padding: 5rem 2rem; /* Ajusta padding para mobile */
-    background-color: #F5F5DC; /* Bege claro */
-}
-
-.catalogo h2 {
-    text-align: center;
-    margin-bottom: 3rem; /* Ajusta margin para mobile */
-    color: #5D001E; /* Bordô */
-    font-size: 2rem; /* Ajusta tamanho da fonte */
+    color: var(--dourado);
     font-family: 'Agu Display', sans-serif;
 }
 
-.catalogo-grid {
+.banner-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* Search Bar in Banner */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.search-bar-container input[type="text"] {
+    padding: 10px 15px;
+    border: 2px solid var(--dourado);
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 70%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--cinza-escuro);
+}
+
+.search-bar-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bordo);
+    color: var(--bege-claro);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-bar-container button:hover {
+    background-color: var(--dourado);
+    color: var(--preto);
+}
+
+/* --- Category Filters Container (New Section) --- */
+.category-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    background-color: var(--preto); /* Dark background for category filters */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.filter-category-item {
+    background-color: var(--cinza-escuro);
+    color: var(--bege-claro);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    min-width: 150px;
+    flex-grow: 1; /* Allows items to grow and fill space */
+    max-width: 250px; /* Max width for individual category item */
+}
+
+.filter-category-item h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--dourado);
+}
+
+.filter-category-item:hover {
+    background-color: var(--bordo);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Main Catalog Section --- */
+.main-catalog {
+    padding-top: 3rem; /* Adjusted padding to account for fixed header and new filter sections */
+}
+
+.bebidas h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--bordo);
+    font-size: 2.5rem;
+    font-family: 'Agu Display', sans-serif;
+}
+
+/* Estilos para o Painel de Filtros Detalhados */
+.filters-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: var(--cinza-escuro);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Align with main grid */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filters-panel label {
+    color: var(--dourado);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.filters-panel select,
+.filters-panel input[type="text"],
+.filters-panel input[type="range"] {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--bordo);
+    border-radius: 5px;
+    background-color: var(--bege-claro);
+    color: var(--cinza-escuro);
+    font-size: 1rem;
+    width: 100%;
+    max-width: 200px;
+}
+
+.filters-panel input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--bordo);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border: none;
+}
+
+.filters-panel input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--dourado);
+    cursor: pointer;
+    border: 2px solid var(--preto);
+}
+
+.filters-panel input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--dourado);
+    cursor: pointer;
+    border: 2px solid var(--preto);
+}
+
+.filters-panel #preco-max-value {
+    color: var(--bege-claro);
+    font-weight: bold;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Grid das Bebidas */
+.bebidas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem; /* Aumenta o gap um pouco */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.catalogo-item {
-    text-align: center;
-    padding: 2rem; /* Ajusta padding para mobile */
-    background-color: #D4AF37; /* Dourado */
-    color: #1C1C1C;
+.bebidas-item {
+    background: #fff;
     border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
-.catalogo-item:hover{
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.bebidas-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.catalogo-item a {
+.bebidas-item a {
     text-decoration: none;
     color: inherit;
     display: block;
-    padding: 2rem;
-    border-radius: 10px;
+    padding-bottom: 1rem;
 }
 
-.catalogo img {
+.bebidas-item img {
     width: 100%;
-    height: 280px; /* Ajusta altura da imagem para mobile */
+    height: 200px;
     object-fit: cover;
-    border-radius: 20px; /* Ajusta border-radius */
-    transition: opacity 0.1s ease;
-    margin-bottom: 1rem; /* Espaço abaixo da imagem */
+    border-bottom: 1px solid var(--bege-claro);
 }
 
-.catalogo-item h3 {
+.bebidas-item h3 {
     font-size: 1.4rem;
+    color: var(--bordo);
+    padding: 1rem 1rem 0.5rem;
+}
+
+.bebidas-item h5 {
+    font-size: 1.1rem;
+    color: var(--cinza-escuro);
+    padding: 0 1rem 0.5rem;
+}
+
+.bebidas-item p {
+    font-size: 0.95rem;
+    color: var(--cinza-escuro);
+    padding: 0 1rem;
     margin-bottom: 0.5rem;
 }
 
-.catalogo-item p {
+.bebidas-item .preco {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--preto);
+    padding: 0 1rem 1rem;
+}
+
+/* Estilos para o botão Adicionar ao Carrinho */
+.add-to-cart-form {
+    display: flex; /* Para alinhar o input de quantidade e o botão */
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; /* Espaço acima do botão */
+    gap: 10px; /* Espaço entre o input e o botão */
+}
+
+.product-quantity {
+    width: 60px; /* Largura do input de quantidade */
+    padding: 8px;
+    border: 1px solid var(--dourado);
+    border-radius: 5px;
+    text-align: center;
     font-size: 1rem;
 }
 
-.catalogo-item:hover img {
-    opacity: 0.9;
+.add-to-cart-btn {
+    background-color: var(--bordo); /* Cor do botão */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
 }
 
-.footer {
-    background-color: #1a1a1a;
-    color: #fff;
-    text-align: center; 
-    padding: 2rem;
+.add-to-cart-btn:hover {
+    background-color: #8C0030; /* Cor ao passar o mouse */
 }
-.footer a {
-    color: #D4AF37; /* Dourado */
+
+/* Estilos para o botão de Favoritos */
+.favorito-btn {
+    position: absolute; /* Para posicionar em relação ao product-item */
+    top: 10px;
+    right: 10px;
+    font-size: 1.8rem; /* Tamanho do coração */
     text-decoration: none;
-}
-.footer a:hover {
-    color: #F5F5DC; /* Bege claro */
-}
-
-.footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    color: #ccc; /* Cor padrão (cinza) */
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10; /* Garante que fique acima de outros elementos */
 }
 
-.footer ul li {
-    display: flex;
+.favorito-btn:hover {
+    color: #ff6666; /* Cor no hover */
+    transform: scale(1.1); /* Pequena animação */
 }
 
+.favorito-btn.favorito-ativo {
+    color: #ff0000; /* Cor quando ativo (vermelho) */
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Sombra para destacar */
+}
+
+/* Garanta que o .product-item tenha position: relative; para que o ícone funcione */
+.product-item {
+    position: relative; /* Adicione esta linha se não tiver */
+    /* ... seus outros estilos de product-item ... */
+}
+
+
+/* Tag de Promoção */
+.promocao-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--dourado);
+    color: var(--preto);
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para itens ocultos pelo filtro (JS) */
+.bebidas-item.hidden {
+    display: none;
+}
+
+/* --- Rodapé --- */
+.footer {
+    background-color: var(--preto);
+    color: var(--bege-claro);
+    text-align: center;
+    padding: 2.5rem;
+    font-size: 0.95rem;
+    margin-top: 3rem;
+}
+
+/* --- Responsividade --- */
 @media(max-width: 768px) {
-    .header{
+    .header {
         flex-direction: column;
         text-align: center;
+        padding: 1.5rem 1rem;
+    }
+
+    .logo {
+        margin-bottom: 0.8rem;
     }
 
     .nav {
         margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .nav a {
-        margin: 0.5rem;
+        margin: 0.5rem 0.8rem;
     }
 
     .banner-content h2 {
         font-size: 2rem;
     }
 
-    .datas-container {
+    .search-bar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar-container input[type="text"] {
+        width: 90%;
+        max-width: 300px;
+        margin-bottom: 10px;
+    }
+
+    .search-bar-container button {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .bebidas h2 {
+        font-size: 2rem;
+    }
+
+    .filters-panel {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+
+    .filters-panel select,
+    .filters-panel input[type="text"],
+    .filters-panel input[type="range"] {
+        max-width: 100%;
+    }
+
+    .bebidas-grid {
         grid-template-columns: 1fr;
+    }
+
+    .category-filters-container {
+        flex-direction: column;
+        gap: 0.8rem;
     }
 }
 
-
+@media(max-width: 480px) {
+    .banner-content h2 {
+        font-size: 1.8rem;
+    }
+}

@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Agu+Display:MORF@59&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Yuji+Mai&display=swap');
-*{
+
+/* Variáveis CSS para facilitar a manutenção das cores */
+:root {
+    --bordo: #5D001E;
+    --dourado: #D4AF37;
+    --preto: #1C1C1C;
+    --bege-claro: #F5F5DC;
+    --cinza-escuro: #2F2F2F;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,208 +17,134 @@
 
 body {
     line-height: 1.6;
-    color: #2F2F2F; /* Cinza escuro */
-    background-color: #F5F5DC; /* Bege claro para fundo geral */
-    font-family: 'Cormorant Garamond', serif; /* Definindo uma fonte base */
+    color: var(--cinza-escuro); /* Cor de texto principal */
+    font-family: 'Cormorant Garamond', serif;
 }
 
+/* --- Cabeçalho --- */
 .header {
-    background-color: #1C1C1C; /* Preto */
-    color: #F5F5DC; /* Bege claro */
+    background-color: var(--preto); /* Fundo preto */
+    color: var(--bege-claro); /* Texto bege claro */
     padding: 1rem;
     display: flex;
-    justify-content: spce-between;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Ajuste de padding para mobile */
     position: fixed;
     width: 100%;
     z-index: 1000;
-    flex-wrap: wrap; /* Permite que os itens do header quebrem linha se necessário */
-    min-height: 60px; /* Garante uma altura mínima */
-}
-
-.header-icons {
-    display: flex; /* Makes the icon container a flex container */
-    gap: 15px; /* Adds space between the icons */
-}
-
-/* Optional: Basic styling for your logo and icons */
-.logo {
-    color: #e3e3e3; /* Example color */
-    text-decoration: none;
-    font-size: 1.8em;
-}
-
-.cart svg,
-.header-icons a svg {
-    /* Styles for your SVG icons if needed */
-    height: 24px;
-    width:24px;
-}
-
-.header a {
-    color: #F5F5DC;
-    text-decoration: none;
-}
-
-.header a:hover {
-    color: #5d001e; /* Bordô */
-}
-
-
-.barra-localizacao {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px auto;
-  max-width: 400px;
-  padding: 10px;
-  background-color: #2F2F2F; /* Cinza escuro */
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.barra-localizacao input[type="text"] {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background-color: #F5F5DC; /* Bege claro */
-  color: #1C1C1C; /* Preto */
-  font-size: 14px;
-}
-
-.barra-localizacao input::placeholder {
-  color: #1c1c1c;
-}
-
-.barra-localizacao button {
-  padding: 10px 16px;
-  background-color: #D4AF37; /* Dourado */
-  color: #1C1C1C; /* Preto */
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.barra-localizacao button:hover {
-  background-color: #D4AF37; /* tom mais escuro do dourado */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-    font-size: 1.8rem; /* Aumenta um pouco para mobile */
+    font-size: 1.8rem;
     font-weight: bold;
-    font-family: 'Agu Display', sans-serif; /* Aplica a fonte específica para o logo */
-    flex-grow: 1; /* Permite que o logo ocupe espaço */
-    text-align: center; /* Centraliza o logo no mobile */
-    margin-bottom: 0.5rem; /* Espaço abaixo do logo no mobile */
+    color: var(--dourado); /* Logo em dourado */
+    font-family: 'Agu Display', sans-serif;
 }
 
-.nav a{
-    color: #F5F5DC;
+.nav a {
+    color: var(--bege-claro); /* Links em bege claro */
     text-decoration: none;
     margin-left: 2rem;
-    transition: color 0.3s;
+    transition: color 0.3s ease-in-out;
+    font-size: 1.1rem;
 }
 
-.nav a:hover{
-    color: #5d001e;
+.nav a:hover {
+    color: var(--dourado); /* Dourado no hover */
 }
 
+/* --- Banner --- */
 .banner {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('img/bbb.jpg')center/cover;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('img/bbb.jpg') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: #F5F5DC;
+    color: var(--bege-claro);
 }
 
-.banner-content{
+.banner-content {
     padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
 }
 
 .banner-content h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dourado);
+    font-family: 'Agu Display', sans-serif;
 }
 
-.bebidas {
+.localizacao-box {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.localizacao-box form {
+    display: flex;
+    background-color: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.localizacao-box input {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 30px 0 0 30px;
+    width: 250px;
+}
+
+.localizacao-box button {
+    background-color: #5D001E; /* cor bordô */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 0 30px 30px 0;
+    transition: background 0.3s ease;
+}
+
+.localizacao-box button:hover {
+    background-color: #8C0030;
+}
+
+/* --- Seção de Promoções --- */
+.promocoes {
     padding: 5rem 2rem;
-    background-color: #F5F5DC;
+    background-color: var(--bege-claro);
 }
 
-.bebidas h2{
+.promocoes h2 {
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--bordo);
+    font-size: 2.5rem;
+    font-family: 'Agu Display', sans-serif;
 }
 
-.bebidas-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-
-.bebidas-card {
-    background: #ebebd6;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 2rem;
-    border-radius: 10px;
-}
-
-.bebidas-card a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 2rem;
-    border-radius: 10px;
-}
-
-.bebidas-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: opacity 0.3s ease;
-}
-
-.bebidas-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.bebidas-card h3, .bebidas-card p{
-    padding: 1rem;
-}
-
-
+/* --- Seção de Serviços --- */
 .servicos {
     padding: 5rem 2rem;
-    background-color: #F5F5DC;
+    background-color: var(--cinza-escuro); /* Fundo cinza escuro */
+    color: var(--bege-claro); /* Texto em bege claro */
 }
 
-.servicos img {
-    width: 500px;
-    height: 500px;
-    object-fit: center;
-}
-
-.servicos h2{
+.servicos h2 {
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--dourado); /* Título em dourado */
+    font-size: 2.5rem;
+    font-family: 'Agu Display', sans-serif;
 }
 
 .servicos-grid {
@@ -221,16 +157,16 @@ body {
 
 .servicos-item {
     text-align: center;
-    padding: 2rem;
-    background-color: #ebebd6;
+    background-color: var(--preto); /* Fundo dos itens de serviço em preto */
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--bordo); /* Borda sutil bordô */
 }
 
 /* Tornar o bloco inteiro clicável */
 .servicos-item a {
     text-decoration: none;
-    color: inherit;
+    color: var(--bege-claro); /* Texto do link em bege claro */
     display: block;
     padding: 2rem;
     border-radius: 10px;
@@ -240,67 +176,281 @@ body {
 .servicos img {
     width: 100%;
     max-width: 500px;
-    height: 300px; /* Ajuste para um tamanho mais adequado */
-    object-fit: cover; /* Mantém a imagem ajustada sem deformar */
+    height: 300px;
+    object-fit: cover;
     border-radius: 8px;
     transition: opacity 0.3s ease;
+    border: 2px solid var(--dourado); /* Borda dourada nas imagens */
 }
 
 /* Efeito hover */
 .servicos-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px); /* Efeito de elevação mais notável */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra mais escura no hover */
+    background-color: var(--cinza-escuro); /* Fundo mais escuro no hover */
 }
 
 .servicos-item:hover img {
-    opacity: 0.8;
+    opacity: 0.9; /* Menos opaco no hover */
+    border-color: var(--bordo); /* Troca a cor da borda no hover */
 }
 
+.servicos-item h3 {
+    color: var(--dourado); /* Título do serviço em dourado */
+    margin-top: 1rem;
+    font-size: 1.4rem;
+}
+.servicos-item p {
+    font-size: 1rem;
+}
+
+
+/* --- Rodapé --- */
 .footer {
-    background-color: #1a1a1a;
-    color: #fff;
-    text-align: center; 
-    padding: 2rem;
-}
-.footer a {
-    color: #D4AF37; /* Dourado */
-    text-decoration: none;
-}
-.footer a:hover {
-    color: #F5F5DC; /* Bege claro */
+    background-color: var(--preto);
+    color: var(--bege-claro);
+    text-align: center;
+    padding: 2.5rem;
+    font-size: 0.95rem;
 }
 
-.footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer ul li {
-    display: flex;
-}
-
+/* --- Media Queries (Responsividade) --- */
 @media(max-width: 768px) {
-    .header{
+    .header {
         flex-direction: column;
         text-align: center;
+        padding: 1.5rem 1rem;
+    }
+
+    .logo {
+        margin-bottom: 0.8rem;
     }
 
     .nav {
         margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .nav a {
-        margin: 0.5rem;
+        margin: 0.5rem 0.8rem;
     }
 
     .banner-content h2 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
-    .datas-container {
-        grid-template-columns: 1fr;
+    .promocoes h2, .servicos h2 {
+        font-size: 2rem;
     }
 }
 
+/* --- Estilos Específicos para o Slick Carousel --- */
+/* Container principal do carrossel */
+.my-carousel {
+    width: 40%; /* Aumentado um pouco para ocupar mais espaço */
+    margin: 50px auto;
+    border: 2px solid var(--dourado); /* Borda dourada para harmonizar */
+    border-radius: 8px; /* Cantos arredondados */
+    overflow: hidden; /* Garante que nada saia da borda */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra mais destacada */
+}
 
+.my-carousel img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilo das setas de navegação do Slick */
+.slick-prev,
+.slick-next {
+    font-size: 0; /* Esconde o texto da seta */
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 40px; /* Largura da seta */
+    height: 40px; /* Altura da seta */
+    padding: 0;
+    cursor: pointer;
+    color: transparent; /* Cor do texto original, mas transparente */
+    border: none;
+    outline: none;
+    background: var(--bordo); /* Fundo bordô */
+    border-radius: 50%; /* Torna as setas redondas */
+    opacity: 0.8; /* Levemente transparente */
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    z-index: 10;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+    color: transparent;
+    outline: none;
+    background: var(--dourado); /* Dourado no hover */
+    opacity: 1; /* Totalmente opaco no hover */
+}
+
+/* Ícones das setas (usando pseudo-elementos) */
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'slick'; /* Fonte interna do Slick para os ícones */
+    font-size: 28px; /* Tamanho do ícone */
+    line-height: 1;
+    color: var(--bege-claro); /* Cor do ícone em bege claro */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+    color: var(--preto); /* Cor do ícone em preto no hover */
+}
+
+.slick-prev {
+    left: 15px; /* Posição da seta esquerda */
+}
+[dir='rtl'] .slick-prev {
+    right: 15px;
+    left: auto;
+}
+.slick-prev:before {
+    content: '←'; /* Caractere de seta para a esquerda */
+}
+[dir='rtl'] .slick-prev:before {
+    content: '→';
+}
+
+.slick-next {
+    right: 15px; /* Posição da seta direita */
+}
+[dir='rtl'] .slick-next {
+    right: auto;
+    left: 15px;
+}
+.slick-next:before {
+    content: '→'; /* Caractere de seta para a direita */
+}
+[dir='rtl'] .slick-next:before {
+    content: '←';
+}
+
+/* Estilo dos indicadores de bolinha (dots) do Slick */
+.slick-dots {
+    position: absolute;
+    bottom: 20px; /* Mais afastado da borda inferior */
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 18px; /* Largura da bolinha */
+    height: 18px; /* Altura da bolinha */
+    margin: 0 6px; /* Espaçamento entre as bolinhas */
+    padding: 0;
+    cursor: pointer;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+.slick-dots li button:before {
+    font-family: 'slick';
+    font-size: 10px; /* Tamanho do ícone da bolinha (visível se não tiver background) */
+    line-height: 18px; /* Centraliza o ícone */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    content: '•'; /* Conteúdo padrão (uma bolinha) */
+    text-align: center;
+    opacity: .75; /* Opacidade inicial */
+    color: var(--dourado); /* Cor das bolinhas em dourado (mas com background elas não aparecem) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Estilo do círculo de fundo da bolinha */
+    background-color: rgba(93, 0, 30, 0.5); /* Bordô semi-transparente */
+    border-radius: 50%;
+    border: 1px solid var(--dourado); /* Borda dourada sutil */
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+.slick-dots li.slick-active button:before {
+    background-color: var(--dourado); /* Bolinha ativa em dourado sólido */
+    opacity: 1;
+    border-color: var(--bordo); /* Borda bordô na ativa */
+    transform: scale(1.2); /* Aumenta um pouco a bolinha ativa */
+}
+
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+    opacity: 1;
+    background-color: var(--dourado); /* Dourado no hover */
+    border-color: var(--bordo);
+}
+
+/* Media Query para carrossel em telas menores */
+@media(max-width: 768px) {
+    .my-carousel {
+        width: 90%; /* Ocupa mais espaço em mobile */
+        margin: 30px auto;
+    }
+
+    .slick-prev, .slick-next {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .slick-prev:before, .slick-next:before {
+        font-size: 20px;
+    }
+
+    .slick-prev {
+        left: 5px;
+    }
+    .slick-next {
+        right: 5px;
+    }
+
+    .slick-dots {
+        bottom: 10px;
+    }
+    .slick-dots li {
+        width: 14px;
+        height: 14px;
+        margin: 0 4px;
+    }
+    .slick-dots li button,
+    .slick-dots li button:before {
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+    }
+    .slick-dots li button:before {
+        font-size: 8px;
+    }
+}

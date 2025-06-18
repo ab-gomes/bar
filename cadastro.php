@@ -3,16 +3,10 @@ require_once 'config.php'; // Inclui a conexão com o banco de dados e inicia a 
 
 $mensagem = ''; // Para exibir mensagens de sucesso ou erro
 
-// Se houver uma mensagem na sessão (ex: do processa_login.php), exibe e limpa
-if (isset($_SESSION['mensagem_login'])) {
-    $mensagem = $_SESSION['mensagem_login'];
-    unset($_SESSION['mensagem_login']); // Limpa a mensagem após exibir
-}
-
-// Se o usuário já estiver logado, redireciona para a página de usuário
-if (isset($_SESSION['user_id'])) {
-    header("Location: user.php");
-    exit();
+// Se houver uma mensagem na sessão (ex: do processa_cadastro.php), exibe e limpa
+if (isset($_SESSION['mensagem_cadastro'])) {
+    $mensagem = $_SESSION['mensagem_cadastro'];
+    unset($_SESSION['mensagem_cadastro']); // Limpa a mensagem após exibir
 }
 ?>
 <!DOCTYPE html>
@@ -20,10 +14,9 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - OnlineBar</title>
+    <title>Cadastro - OnlineBar</title>
     <link rel="stylesheet" href="style.css">
     <style>
-       
         /* Estilos específicos para as páginas de cadastro/login */
 body {
     background-color: var(--bege-claro); /* Fundo da página */
@@ -193,13 +186,13 @@ footer.footer {
         <nav class="nav">
             <a href="index.php"> Home </a>
             <a href="favoritos.php"> 🤍 </a>
-            <a href="cart.php"> 🛒 (<?= array_sum(array_column($_SESSION['carrinho'] ?? [], 'quantidade')) ?>) </a>
+            <a href="cart.php"> 🛒 </a>
             <a href="user.php"> 👤 </a>
         </nav>
     </header>
 
     <div class="container">
-        <h2>Fazer Login</h2>
+        <h2>Criar Conta</h2>
 
         <?php if (!empty($mensagem)): ?>
             <div class="mensagem <?= strpos($mensagem, 'sucesso') !== false ? 'sucesso' : 'erro' ?>">
@@ -207,7 +200,11 @@ footer.footer {
             </div>
         <?php endif; ?>
 
-        <form action="processa_login.php" method="POST">
+        <form action="processa_cadastro.php" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
             <div class="form-group">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required>
@@ -216,10 +213,33 @@ footer.footer {
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" required>
             </div>
-            <button type="submit" class="btn-submit">Entrar</button>
+            <div class="form-group">
+                <label for="confirmar_senha">Confirmar Senha:</label>
+                <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" placeholder="Ex: 123.456.789-00" required>
+            </div>
+            <div class="form-group">
+                <label for="data_nascimento">Data de Nascimento:</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" required>
+            </div>
+             <div class="form-group">
+                <label for="telefone">Telefone (Opcional):</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="Ex: (XX) XXXX-XXXX">
+            </div>
+            <div class="form-group">
+                <label for="tipo_usuario">Eu sou:</label>
+                <select id="tipo_usuario" name="tipo_usuario" required>
+                    <option value="cliente">Cliente</option>
+                    <option value="entregador">Entregador</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Cadastrar</button>
         </form>
         <div class="link-alternativo">
-            Não tem uma conta? <a href="cadastro.php">Cadastre-se aqui!</a>
+            Já tem uma conta? <a href="login.php">Faça Login aqui!</a>
         </div>
     </div>
 
